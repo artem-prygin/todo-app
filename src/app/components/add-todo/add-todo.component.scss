@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  max-width: 100%;
+}
+
+.title-field {
+  height: 110px;
+
+  textarea {
+    height: 100%;
+  }
+}

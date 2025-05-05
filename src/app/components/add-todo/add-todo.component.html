@@ -1,0 +1,41 @@
+<form class="form"
+      (submit)="addTodoItem()"
+      [formGroup]="form">
+  <mat-form-field appearance="outline"
+                  class="title-field">
+    <mat-label>Title</mat-label>
+    <textarea matInput
+              formControlName="title"
+              rows="2"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Expiration date</mat-label>
+    <input matInput
+           [matDatepicker]="picker"
+           formControlName="expirationDate">
+    <mat-datepicker-toggle matSuffix
+                           [for]="picker" />
+    <mat-datepicker #picker />
+  </mat-form-field>
+
+  <div class="error"
+       *ngIf="form.controls.expirationDate?.invalid && form.controls.expirationDate?.touched">
+    <span *ngIf="form.controls.expirationDate?.errors?.['required']">Date is required.</span>
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Expiration time (optional)</mat-label>
+    <input matInput
+           [ngxTimepicker]="timepicker"
+           formControlName="expirationTime"
+           [format]="24"
+           readonly>
+    <ngx-material-timepicker #timepicker />
+  </mat-form-field>
+
+  <button type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid">Add TODO
+  </button>
+</form>

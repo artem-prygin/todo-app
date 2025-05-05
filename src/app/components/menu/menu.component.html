@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
+  <span class="navbar-brand mb-0 h1">My TODO List</span>
+
+  <button class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#todoNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end"
+       id="todoNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item"
+          *ngFor="let menuItem of menuList">
+        <a class="nav-link"
+           [ngClass]="activeRoute === menuItem.url ? 'text-danger' : 'text-secondary'"
+           [routerLink]="menuItem.url">
+          {{ menuItem.title }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
