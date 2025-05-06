@@ -7,7 +7,7 @@ import { StorageMap } from '@ngx-pwa/local-storage';
   providedIn: 'root',
 })
 export class TodoService {
-  private readonly STORAGE_KEY = 'todo-list';
+  private readonly STORAGE_KEY = 'todos';
   private todos$ = new BehaviorSubject<TodoInterface[]>([]);
   private localStorage: StorageMap = inject(StorageMap);
 
