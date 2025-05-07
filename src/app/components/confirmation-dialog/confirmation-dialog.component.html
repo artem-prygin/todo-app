@@ -1,0 +1,16 @@
+<div class="popup p-4">
+  <h2>Confirm</h2>
+  <p>{{ data.message }}</p>
+
+  <div class="d-flex justify-content-between align-items-center">
+    <button (click)="onCancel()"
+            class="btn btn-secondary">Cancel
+    </button>
+
+    <button (click)="onConfirm()"
+            class="btn btn-danger">Delete
+    </button>
+  </div>
+</div>
+
+

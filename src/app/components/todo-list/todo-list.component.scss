@@ -1,0 +1,24 @@
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.table-header {
+  display: flex;
+  padding: 0 16px 0 8px;
+  width: 100%;
+  font-size: 14px;
+
+  @media screen and (max-width: 991px) {
+    display: none;
+  }
+}
+
+.empty-div {
+  width: calc(100% - 360px);
+}
+
+.column-title {
+  width: 120px;
+}

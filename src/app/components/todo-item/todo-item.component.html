@@ -1,1 +1,55 @@
-<p>todo-item works!</p>
+<div class="todo-item"
+     [class.disabled]="removingIDsInProgress.includes(todo.id)">
+  <div class="todo-title fw-semibold">
+    <span>
+      {{todo.title}}
+    </span>
+  </div>
+
+  <div class="table-field">
+    <span class="column-title">
+      Created at:
+    </span>
+
+    <span>
+      {{todo.createdAt | date: 'MMM d, y'}}
+    </span>
+  </div>
+
+  <div class="table-field"
+       *ngIf="todoType !== TodoTypesEnum.Today; else countDown">
+    <span class="column-title">Expired at:</span>
+
+    <span>
+      {{todo.expiredAt | date: 'MMM d, y'}}
+    </span>
+  </div>
+
+  <div class="table-field d-flex gap-5 buttons">
+    <mat-icon class="pointer"
+              (click)="emitToggleFavouriteTodo()">
+      {{ todo.isFavourite ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+
+    <span class="remove-icon"
+          (click)="confirmRemovingTodo(todo.id)">
+      <mat-icon>close</mat-icon>
+    </span>
+  </div>
+</div>
+
+<ng-template #countDown>
+  <div class="table-field time-left">
+    <span class="column-title">Time left:</span>
+    <span *ngIf="timeLeft; else loading"
+          [class.text-danger]="timeLeft.length < MAX_COUNTDOWN_SYMBOLS">
+      {{ timeLeft }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <mat-progress-spinner mode="indeterminate"
+                        diameter="20"
+                        color="primary" />
+</ng-template>

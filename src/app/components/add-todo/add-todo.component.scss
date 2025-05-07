@@ -1,14 +1,62 @@
 .form {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  max-width: 100%;
+  margin: auto;
 }
 
-.title-field {
-  height: 110px;
+.field {
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 
-  textarea {
-    height: 100%;
+  label {
+    font-size: 14px;
   }
+
+  &-input {
+    border: 1px solid rgba(0, 0, 0, 0.176);
+    border-radius: 4px;
+    padding: 4px;
+
+    &::placeholder {
+      opacity: .5;
+    }
+
+    &.ng-invalid:not(.ng-pristine) {
+      border: 1px solid red;
+
+      &::placeholder {
+        color: red;
+      }
+
+      &:hover, &:active, &:focus, &:focus-visible {
+        outline: none;
+        border-color: red;
+      }
+    }
+  }
+
+  &-error {
+    border-color: red;
+
+    label {
+      color: red;
+    }
+
+    input {
+      color: red;
+    }
+  }
+}
+
+.error-message {
+  position: absolute;
+  left: 0;
+  bottom: -18px;
+  font-size: 12px;
+}
+
+.submit-btn {
+  width: 200px;
 }

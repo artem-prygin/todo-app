@@ -6,6 +6,6 @@ import { RoutesConstants } from './components/constants/routes.constants';
 export const routes: Routes = [
   { path: RoutesConstants.ADD, component: AddTodoComponent },
   { path: RoutesConstants.LIST, component: TodoListComponent },
-  { path: RoutesConstants.FAVORITE, component: TodoListComponent },
+  { path: RoutesConstants.FAVOURITE, component: TodoListComponent },
   { path: '**', redirectTo: RoutesConstants.LIST },
 ];

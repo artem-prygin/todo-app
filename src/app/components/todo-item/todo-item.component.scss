@@ -1,0 +1,67 @@
+.todo-item {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 8px 16px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.176);
+  border-radius: 4px;
+}
+
+.todo-title {
+  padding-right: 16px;
+  min-width: 300px;
+  max-width: 100%;
+  width: calc(100% - 360px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.column-title {
+  display: none;
+}
+
+.table-field {
+  width: 120px;
+}
+
+.buttons {
+  justify-content: center;
+}
+
+.remove-icon {
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 991px) {
+  .todo-title {
+    min-width: auto;
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .todo-title, .table-field {
+    width: 100%;
+  }
+
+  .column-title {
+    display: inline;
+  }
+
+  .time-left {
+    display: flex;
+    gap: 8px;
+  }
+
+  .buttons {
+    padding-top: 10px;
+    justify-content: space-between;
+  }
+}

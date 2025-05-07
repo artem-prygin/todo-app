@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { MenuItemInterface } from '../../interfaces/menu-item.interface';
-import { RoutesConstants } from '../constants/routes.constants';
 import { NgClass, NgForOf } from '@angular/common';
 import { filter } from 'rxjs';
+
+import { MenuItemInterface } from '../../interfaces/menu-item.interface';
+import { RoutesConstants } from '../constants/routes.constants';
 
 @Component({
   selector: 'app-menu',
@@ -14,7 +15,6 @@ import { filter } from 'rxjs';
     NgClass,
   ],
   templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
   public router: Router = inject(Router);
@@ -23,7 +23,7 @@ export class MenuComponent {
   public readonly menuList: MenuItemInterface[] = [
     { url: RoutesConstants.ADD, title: 'Add' },
     { url: RoutesConstants.LIST, title: 'List' },
-    { url: RoutesConstants.FAVORITE, title: 'Favorite' },
+    { url: RoutesConstants.FAVOURITE, title: 'Favourite' },
   ];
 
   constructor() {

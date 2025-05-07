@@ -1,5 +1,5 @@
 export const RoutesConstants = {
   ADD: 'add',
   LIST: 'list',
-  FAVORITE: 'favorite',
+  FAVOURITE: 'favourite',
 } as const;

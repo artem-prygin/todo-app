@@ -1,43 +1,101 @@
-<form class="form"
-      (submit)="addTodoItem()"
-      [formGroup]="form">
-  <mat-form-field appearance="outline"
-                  class="title-field">
-    <mat-label>Title</mat-label>
-    <textarea matInput
-              formControlName="title"
-              rows="2"></textarea>
-  </mat-form-field>
+<div class="card shadow mb-4">
+  <div class="card-header bg-light fw-semibold d-flex align-items-center gap-3">
+    <a href=""
+       (click)="goBack($event)"
+       class="text-decoration-none">
+      < back
+    </a>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Expiration date</mat-label>
-    <input matInput
-           [matDatepicker]="picker"
-           formControlName="expirationDate">
-    <mat-datepicker-toggle matSuffix
-                           [for]="picker" />
-    <mat-datepicker #picker />
-  </mat-form-field>
-
-  test
-
-  <div class="error"
-       *ngIf="form.controls.expirationDate?.invalid && form.controls.expirationDate?.touched">
-    <span *ngIf="form.controls.expirationDate?.errors?.['required']">Date is required.</span>
+    <h6 class="mb-0">Add TODO</h6>
   </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Expiration time (optional)</mat-label>
-    <input matInput
-           [ngxTimepicker]="timepicker"
-           formControlName="expirationTime"
-           [format]="24"
-           readonly>
-    <ngx-material-timepicker #timepicker />
-  </mat-form-field>
+  <div class="card-body">
+    <form class="form"
+          [formGroup]="form">
+      <div class="field">
+        <label [class.text-danger]="form.controls.title.invalid && (!form.controls.title.pristine || isSubmittedWithError)">
+          <span>Title<sup>*</sup></span>
+        </label>
 
-  <button type="submit"
-          class="btn btn-primary"
-          [disabled]="form.invalid">Add TODO
-  </button>
-</form>
+        <textarea formControlName="title"
+                  class="field-input"
+                  placeholder="Do something..."
+                  rows="2"></textarea>
+
+        <div class="text-danger error-message"
+             *ngIf="form.controls.title.invalid && (!form.controls.title.pristine || isSubmittedWithError)">
+          <span *ngIf="form.controls.title.errors?.['required']">Title is required</span>
+          <span *ngIf="form.controls.title.errors?.['maxlength']">Title could not exceed 100 symbols</span>
+        </div>
+      </div>
+
+      <div class="field"
+           [class.text-danger]="form.controls.expirationDate.invalid && (!form.controls.expirationDate.pristine || isSubmittedWithError)">
+        <label>
+          <span>Expiration date<sup>*</sup></span>
+        </label>
+
+        <div class="d-flex field-input field-border"
+             [class.field-error]="form.controls.expirationDate.invalid && (!form.controls.expirationDate.pristine || isSubmittedWithError)">
+          <input matInput
+                 (click)="datepicker.open()"
+                 [matDatepicker]="datepicker"
+                 [matDatepickerFilter]="filterDates"
+                 readonly
+                 matSuffix
+                 class="border-0 w-100 outline-0 pointer"
+                 formControlName="expirationDate" />
+          <button matSuffix
+                  mat-icon-button
+                  (click)="datepicker.open()">
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+
+          <mat-datepicker #datepicker />
+        </div>
+
+        <div class="text-danger error-message"
+             *ngIf="form.controls.expirationDate.invalid && (!form.controls.expirationDate.pristine || isSubmittedWithError)">
+          <span *ngIf="form.controls.expirationDate.errors?.['required']">Date is required.</span>
+        </div>
+      </div>
+
+      <div class="field"
+           [class.text-danger]="isPastTime">
+        <label>
+          <span>Expiration time</span>
+        </label>
+
+        <div class="d-flex field-input field-border"
+             [class.field-error]="isPastTime">
+          <input matInput
+                 (change)="validateTime()"
+                 [ngxTimepicker]="timepicker"
+                 formControlName="expirationTime"
+                 [format]="24"
+                 class="border-0 w-100 outline-0 pointer"
+                 readonly>
+          <button matSuffix
+                  mat-icon-button
+                  (click)="timepicker.open()">
+            <mat-icon>access_time</mat-icon>
+          </button>
+          <ngx-material-timepicker #timepicker />
+        </div>
+
+        <div class="text-danger error-message"
+             *ngIf="isPastTime">
+          <span>The time has already passed.</span>
+        </div>
+      </div>
+
+      <div class="w-auto m-auto">
+        <button (click)=addTodoItem()
+                class="btn btn-primary submit-btn">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

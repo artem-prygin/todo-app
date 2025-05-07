@@ -1,14 +1,17 @@
-import { BehaviorSubject, delay, map } from 'rxjs';
-import { TodoInterface } from '../interfaces/todo.interface';
+import { BehaviorSubject, delay } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 import { StorageMap } from '@ngx-pwa/local-storage';
+
+import { TodoInterface } from '../interfaces/todo.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoService {
+  todos$ = new BehaviorSubject<TodoInterface[]>([]);
+  removingIDsInProgress$ = new BehaviorSubject<string[]>([]);
+
   private readonly STORAGE_KEY = 'todos';
-  private todos$ = new BehaviorSubject<TodoInterface[]>([]);
   private localStorage: StorageMap = inject(StorageMap);
 
   get todos(): TodoInterface[] {
@@ -19,19 +22,46 @@ export class TodoService {
     this.loadTodos();
   }
 
-  private loadTodos(): void {
-    this.localStorage.get(this.STORAGE_KEY).subscribe((todos) => {
-      this.todos$.next(todos as TodoInterface[] || []);
+  addTodo(newTodo: TodoInterface): void {
+    this.localStorage.set(this.STORAGE_KEY, [...this.todos$.value, newTodo])
+      .subscribe(() => {
+        this.todos$.next([...this.todos$.value, newTodo]);
+      });
+  }
+
+  removeTodo(id: string): void {
+    this.removingIDsInProgress$.next([...this.removingIDsInProgress$.value, id]);
+    const filteredTodos: TodoInterface[] = this.todos$.value.filter(todo => todo.id !== id);
+
+    this.localStorage.set(this.STORAGE_KEY, filteredTodos).pipe(
+      delay(500),
+    ).subscribe(() => {
+      this.todos$.next(filteredTodos);
+      this.removingIDsInProgress$.next(this.removingIDsInProgress$.value.filter(favID => favID !== id));
     });
   }
 
-  addTodo(): void {
-    this.localStorage.set(this.STORAGE_KEY, { 'updated': 123 }).pipe(
-      delay(300),
-    ).subscribe(() => {
-      console.log(99999);
-      this.todos$.next([{ id: '1', title: '1' }]);
-      console.log(this.todos$.value);
-    });
+  toggleFavouriteTodo(id: string): void {
+    const todos: TodoInterface[] = [...this.todos$.value];
+    const todoToUpdateIndex = todos.findIndex(todo => todo.id === id);
+
+    if (todoToUpdateIndex !== -1) {
+      todos[todoToUpdateIndex] = {
+        ...todos[todoToUpdateIndex],
+        isFavourite: !todos[todoToUpdateIndex].isFavourite,
+      };
+    }
+
+    this.localStorage.set(this.STORAGE_KEY, todos)
+      .subscribe(() => {
+        this.todos$.next(todos);
+      });
+  }
+
+  private loadTodos(): void {
+    this.localStorage.get(this.STORAGE_KEY)
+      .subscribe((todos) => {
+        this.todos$.next(todos as TodoInterface[] || []);
+      });
   }
 }
