@@ -1,27 +1,54 @@
-# TodoApp
+# TODO List Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+This is a simple and responsive TODO List application built with Angular and Angular Material. The app allows users to manage their tasks by adding,
+deleting, and marking tasks as favourite. Users can toggle their favorite tasks, set deadlines using date and time pickers, and enjoy smooth
+interactions with debounced actions. The app is fully responsive, with a collapsible navigation bar that adapts to mobile devices.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Task Management**: Add, delete, and mark tasks as favourite.
+- **Favorites**: Easily toggle favorite tasks with a click.
+- **Date & Time Pickers**: Set task deadlines with Angular Material’s date and time pickers.
+- **Debounced Actions**: Prevent excessive API calls and ensure smoother user interactions with debounced actions.
+- **Responsive Design**: The app is mobile-friendly with a collapsible navigation bar.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To get the project up and running locally, follow these steps:
 
-## Build
+### 1. Navigate into the project directory:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```bash
+   cd todo-app
+   ```
 
-## Running unit tests
+### 2. Install the required dependencies:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+To install the necessary packages for the project, run the following command:
 
-## Running end-to-end tests
+```bash
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+This will install all the dependencies listed in the package.json file.
 
-## Further help
+### 3. Run the app in development mode
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+After the installation is complete, you can run the app in development mode by executing the following command:
+
+```bash
+npm start
+```
+
+This will start the Angular development server, and you can access the app by navigating to http://localhost:4200 in your browser.
+
+### 4. Build the app for production
+
+To build the app for production, run the following command:
+
+```bash
+npm run build
+```
+
+This will create a dist/ directory containing the optimized, minified, and production-ready files. You can deploy the contents of this directory to
+your production server.
