@@ -1,5 +1,7 @@
 # TODO List Application
 
+**Author:** Artem Prygin
+
 This is a simple and responsive TODO List application built with Angular and Angular Material. The app allows users to manage their tasks by adding,
 deleting, and marking tasks as favourite. Users can toggle their favorite tasks, set deadlines using date and time pickers, and enjoy smooth
 interactions with debounced actions. The app is fully responsive, with a collapsible navigation bar that adapts to mobile devices.
